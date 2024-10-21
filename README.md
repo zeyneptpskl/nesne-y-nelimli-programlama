@@ -1,0 +1,150 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+     class Program
+    {
+        static void Main(string[] args)
+        {
+            Kisi kisi1 = new Kisi("Ayşe", "Güler", 1984, 12345678903);
+            Kisi kisi2 = new Kisi("Ahmet", "Yılmaz", 1975,23456789032);
+            Kisi kisi3 = new Kisi("Fatma", "Avcı", 1988, 23456789028);
+            Kisi kisi4 = new Kisi("Mehmet", "Çelik", 1990,23456789015);
+            Kisi kisi5 = new Kisi("Zehra", "Kara", 1999,23456789092);
+            Kisi kisi6 = new Kisi("Murat", "Demir", 1888, 23456789074);
+
+            Arac arac1 = new Arac("a1245", "taksi", "model1", 2016, "audi", new DateTime(2020, 1, 1), 650000);
+            arac1.OncekiSahipler.Add(kisi4);
+            arac1.OncekiSahipler.Add(kisi5);
+            arac1.OncekiSahipler.Add(kisi6);
+            arac1.OncekiSahipler.Add(kisi1);
+
+
+        
+          Arac arac2 = new Arac("b1345", "kamyon", "model2", 2018, "BMW", new DateTime(2021, 3, 15), 50000);
+            arac2.OncekiSahipler.Add(kisi4);
+            arac2.OncekiSahipler.Add(kisi2);
+            arac2.OncekiSahipler.Add(kisi3);
+            arac2.OncekiSahipler.Add(kisi5);
+            arac2.OncekiSahipler.Add(kisi1);
+
+          Arac arac3 = new Arac("c0191", "otobüs", "model3", 2020, "mercedes", new DateTime(2022, 7, 11), 7000000);
+            arac3.OncekiSahipler.Add(kisi5);
+            arac3.OncekiSahipler.Add(kisi2);
+            arac3.OncekiSahipler.Add(kisi4);
+            arac3.OncekiSahipler.Add(kisi3);
+            arac3.OncekiSahipler.Add(kisi6);
+            arac3.OncekiSahipler.Add(kisi1);
+
+            Arac arac4 = new Arac("d23191", "taksi", "model4", 2017, "chery", new DateTime(2021, 4, 20), 1200000);
+            arac3.OncekiSahipler.Add(kisi3);
+            arac3.OncekiSahipler.Add(kisi5);
+            arac3.OncekiSahipler.Add(kisi1);
+
+            kisi1.AracEkle(arac1);
+            kisi1.AracEkle(arac2);
+            kisi1.AracEkle(arac3);
+            kisi1.AracEkle(arac4);
+
+            kisi1.AraclarimiListele();
+            }
+
+        }
+
+
+    }
+       
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    public class Arac
+    { 
+        public string SasiNo { get; set; }
+        public string Tur { get; set; }
+        public string Model { get; set; }
+        public  int Yıl { get; set; }
+        public string Marka { get; set; }
+        public DateTime EdinmeTarihi { get; set; }
+        public decimal EdinmeFiyati { get; set; }
+        public List<Kisi> OncekiSahipler { get; set; }
+
+        public Arac(string sasiNo,string tur ,string model,int Yıl,string marka,DateTime edinmeTarihi,decimal edinmeFiyatı)
+        { 
+            SasiNo = sasiNo;
+            Tur= tur;
+            Model= model;   
+            Marka=marka;
+            EdinmeTarihi = edinmeTarihi;
+            EdinmeFiyati = edinmeFiyatı;
+            OncekiSahipler = new List<Kisi>();
+
+        }
+        public void AracBilgileriniYazdir()
+        {
+            Console.WriteLine($"Şasi Numarası:{SasiNo}");
+            Console.WriteLine($"Sahibi:{OncekiSahipler[OncekiSahipler.Count - 1].GetFullName()}");
+
+
+            Console.WriteLine($"Edinme Tarihi:{EdinmeTarihi.ToShortDateString()}");
+            if (OncekiSahipler.Count > 1)
+            {
+                Console.WriteLine($"Model Yılı:{OncekiSahipler[OncekiSahipler.Count - 2]} ");
+
+            }
+        }
+
+    }
+}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    public class Kisi
+    {
+     private string Adi { get; set; } 
+     private string Soyadi {  get; set; } 
+     private int DoğumYili { get; set; }
+     private string TCKimlikNo { get; set; } 
+        private  List<Arac> SahipOlduguAraclar { get; set; }
+        public Kisi ( string adi,string soyadi ,int dogumYili,string tcKimlikNo)
+        {
+            Adi = adi;
+            Soyadi = soyadi;
+            DoğumYili= dogumYili;
+            TCKimlikNo= tcKimlikNo;
+            SahipOlduguAraclar=new List<Arac>();
+
+
+        }
+         public string GetFullName()
+        {
+          return $"{Adi}{Soyadi}";
+        }
+          public void AracEkle(Arac arac) 
+          {
+            SahipOlduguAraclar.Add(arac);
+           }
+        public void AraclarimiListele()
+        {
+            foreach(var arac in SahipOlduguAraclar)
+            {
+                arac.AracBilgileriniYazdir();
+                Console.WriteLine();
+            }
+        }
+    }
+}
