@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    public class Arac
+    { 
+        public string SasiNo { get; set; }
+        public string Tur { get; set; }
+        public string Model { get; set; }
+        public  int Yıl { get; set; }
+        public string Marka { get; set; }
+        public DateTime EdinmeTarihi { get; set; }
+        public decimal EdinmeFiyati { get; set; }
+        public List<Kisi> OncekiSahipler { get; set; }
+
+        public Arac(string sasiNo,string tur ,string model,int Yıl,string marka,DateTime edinmeTarihi,decimal edinmeFiyatı)
+        { 
+            SasiNo = sasiNo;
+            Tur= tur;
+            Model= model;   
+            Marka=marka;
+            EdinmeTarihi = edinmeTarihi;
+            EdinmeFiyati = edinmeFiyatı;
+            OncekiSahipler = new List<Kisi>();
+
+        }
+        public void AracBilgileriniYazdir()
+        {
+            Console.WriteLine($"Şasi Numarası:{SasiNo}");
+            Console.WriteLine($"Sahibi:{OncekiSahipler[OncekiSahipler.Count - 1].GetFullName()}");
+
+
+            Console.WriteLine($"Edinme Tarihi:{EdinmeTarihi.ToShortDateString()}");
+            if (OncekiSahipler.Count > 1)
+            {
+                Console.WriteLine($"Model Yılı:{OncekiSahipler[OncekiSahipler.Count - 2]} ");
+
+            }
+        }
+
+    }
+}
