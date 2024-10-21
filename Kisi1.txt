@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp4
+{
+    public class Kisi
+    {
+     private string Adi { get; set; } 
+     private string Soyadi {  get; set; } 
+     private int DoğumYili { get; set; }
+     private string TCKimlikNo { get; set; } 
+        private  List<Arac> SahipOlduguAraclar { get; set; }
+        public Kisi ( string adi,string soyadi ,int dogumYili,string tcKimlikNo)
+        {
+            Adi = adi;
+            Soyadi = soyadi;
+            DoğumYili= dogumYili;
+            TCKimlikNo= tcKimlikNo;
+            SahipOlduguAraclar=new List<Arac>();
+
+
+        }
+         public string GetFullName()
+        {
+          return $"{Adi}{Soyadi}";
+        }
+          public void AracEkle(Arac arac) 
+          {
+            SahipOlduguAraclar.Add(arac);
+           }
+        public void AraclarimiListele()
+        {
+            foreach(var arac in SahipOlduguAraclar)
+            {
+                arac.AracBilgileriniYazdir();
+                Console.WriteLine();
+            }
+        }
+    }
+}
